@@ -1,0 +1,79 @@
+description: Automation hands-on document.
+schemaVersion: '0.3'
+parameters:
+  Commands:
+    description: runCommand - 実行するCommands
+    type: StringList
+  WorkingDirectory:
+    description: runCommand - working directory
+    type: String
+    default: ''
+  ExecutionTimeout:
+    description: runCommand - timeout seconds
+    type: String
+    default: '7200'
+  OutputS3BucketName:
+    description: runCommand - output bucket Name
+    type: String
+  OutputS3KeyPrefix:
+    description: runCommand - output file prefix
+    type: String
+  FunctionName:
+    description: Automation Action invoke Function name
+    type: String
+  TagKey:
+    description: Tag Key for Instance
+    type: String
+  TagValue:
+    description: Tag Value for Instance
+    type: String
+
+mainSteps:
+
+  - name: getInstanceId
+    action: aws:invokeLambdaFunction
+    maxAttempts: 3
+    timeoutSeconds: 120
+    inputs:
+      FunctionName: "{{ FunctionName }}"
+      InvocationType: RequestResponse
+      InputPayload:
+        tag:
+          Key: '{{ TagKey }}'
+          Value: '{{ TagValue }}'
+    outputs:
+      - Name: instanceId
+        Selector: $.instanceId
+        Type: String
+    onFailure: Abort
+    isCritical: true
+
+  - name: WaitUntilRunning
+    action: aws:waitForAwsResourceProperty
+    maxAttempts: 10
+    timeoutSeconds: 600
+    inputs:
+      Service: ec2
+      Api: DescribeInstances
+      InstanceIds:
+        - "{{ getInstanceId.instanceId }}"
+      PropertySelector: "$.Reservations[0].Instances[0].State.Name"
+      DesiredValues: ["running"]
+
+  - name: runCommand
+    action: 'aws:runCommand'
+    description: This command runs the Command document on the specified instances.
+    inputs:
+      DocumentName: AWS-RunShellScript
+      InstanceIds:
+        - '{{ getInstanceId.instanceId }}'
+      Parameters:
+        commands: '{{ Commands }}'
+        workingDirectory: '{{ WorkingDirectory }}'
+        executionTimeout: '{{ ExecutionTimeout }}'
+      CloudWatchOutputConfig:
+        CloudWatchOutputEnabled: true
+      OutputS3BucketName: '{{ OutputS3BucketName }}'
+      OutputS3KeyPrefix: run-shell
+    timeoutSeconds: 7200
+    isEnd: true
