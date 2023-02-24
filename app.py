@@ -15,7 +15,7 @@ env = cdk.Environment(
 
 app = cdk.App()
 
-# vpc_stack.HandsonVpc(app, 'HandsonVpcStack', env=env)
+vpc_stack.HandsonVpc(app, 'HandsonVpcStack', env=env)
 
 run_command_stack.RunCommandStack(app, "RunCommandStack", env=env)
 
