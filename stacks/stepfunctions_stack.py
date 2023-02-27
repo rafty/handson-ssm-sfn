@@ -1,10 +1,10 @@
 from aws_cdk import Stack
 from constructs import Construct
-from constructors.step_functions_flow_2 import state_functions
-from constructors.step_functions_flow_2 import job_completion_detection
-from constructors.step_functions_flow_2 import stepfunctions
-from constructors.step_functions_flow_2 import functions
-from constructors.step_functions_flow_2 import dynamodb
+from constructors.step_functions import state_functions
+from constructors.step_functions import job_completion_detection
+from constructors.step_functions import stepfunctions
+from constructors.step_functions import functions
+from constructors.step_functions import dynamodb
 
 
 class StepfunctionsStack(Stack):

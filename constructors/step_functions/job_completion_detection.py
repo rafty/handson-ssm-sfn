@@ -25,7 +25,7 @@ class JobCompletionDetectionFunctionConstructor(Construct):
             function_name='job_completion_detection',
             runtime=aws_lambda.Runtime.PYTHON_3_9,
             handler='lambda_function.lambda_handler',
-            code=aws_lambda.Code.from_asset('constructors/step_functions_flow_2/'
+            code=aws_lambda.Code.from_asset('constructors/step_functions/'
                                             'functions_of_statemachine/job_completion_detection'),
             timeout=aws_cdk.Duration.seconds(amount=300),
             tracing=aws_lambda.Tracing.ACTIVE,  # for X-Ray

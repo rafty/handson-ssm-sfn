@@ -13,17 +13,17 @@ class FunctionConstructors(Construct):
         super().__init__(scope, id_)
 
         self.automation_run_book_name = kwargs.get('automation_run_book_name', None)
-        self.output_bucket_name = f'ssm-automation-output-2-{Aws.ACCOUNT_ID}-{Aws.REGION}'
+        self.output_bucket_name = f'ssm-automation-output-{Aws.ACCOUNT_ID}-{Aws.REGION}'
         self.function = self.create_function()
 
     def create_function(self) -> aws_cdk.aws_lambda:
         function = aws_lambda.Function(
             self,
             'SSMAutomationFunction',
-            function_name='ssm_automation_function_2',
+            function_name='starter_automation',
             runtime=aws_lambda.Runtime.PYTHON_3_9,
             handler='lambda_function.lambda_handler',
-            code=aws_lambda.Code.from_asset('handson_app/ssm_automation_2'),
+            code=aws_lambda.Code.from_asset('starter/ssm_automation'),
             timeout=aws_cdk.Duration.seconds(amount=300),
             tracing=aws_lambda.Tracing.ACTIVE,  # for X-Ray
             layers=[self.lambda_powertools()],  # for X-Ray SDK

@@ -29,7 +29,7 @@ def xray_integrate_upstream_services():
 
 def start_state_machine():
 
-    # Todo: StateMachine起動時のinput data
+    # StateMachine起動時のinput data
     input_json = """{
         "tag": {
             "Key": "InstanceName", 
@@ -44,7 +44,6 @@ def start_state_machine():
 
         trace_id = xray_integrate_upstream_services()
         resp = stepfunction.start_execution(
-            # name=run_name,
             name=f'handson-{unique}',  # must be unique for aws account & region
             stateMachineArn=STATEMACHINE_ARN_FOR_HANDSON,
             input=input_json,

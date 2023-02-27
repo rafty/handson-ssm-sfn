@@ -18,10 +18,10 @@ class SfnGetInstanceIdFunctionConstructors(Construct):
         function = aws_lambda.Function(
             self,
             'SfnGetInstanceIdFunction',
-            function_name='sfn_get_instance_id_2',
+            function_name='sfn_get_instance_id',
             runtime=aws_lambda.Runtime.PYTHON_3_9,
             handler='lambda_function.lambda_handler',
-            code=aws_lambda.Code.from_asset('constructors/step_functions_flow_2/functions_of_statemachine/get_instance_id'),
+            code=aws_lambda.Code.from_asset('constructors/step_functions/functions_of_statemachine/get_instance_id'),
             timeout=aws_cdk.Duration.seconds(amount=60),
             tracing=aws_lambda.Tracing.ACTIVE,  # for X-Ray
             layers=[self.lambda_powertools()],  # for X-Ray SDK
@@ -70,10 +70,10 @@ class SfnJobExecuteFunctionConstructors(Construct):
         function = aws_lambda.Function(
             self,
             'SfnJobExecuteFunction',
-            function_name='sfn_job_execute_2',
+            function_name='sfn_job_execute',
             runtime=aws_lambda.Runtime.PYTHON_3_9,
             handler='lambda_function.lambda_handler',
-            code=aws_lambda.Code.from_asset('constructors/step_functions_flow_2/functions_of_statemachine/job_execute'),
+            code=aws_lambda.Code.from_asset('constructors/step_functions/functions_of_statemachine/job_execute'),
             timeout=aws_cdk.Duration.seconds(amount=60),
             tracing=aws_lambda.Tracing.ACTIVE,  # for X-Ray
             layers=[self.lambda_powertools()],  # for X-Ray SDK
@@ -128,7 +128,7 @@ class SfnReceiveCallbackTokenConstructors(Construct):
             function_name='sfn_receive_callback_token',
             runtime=aws_lambda.Runtime.PYTHON_3_9,
             handler='lambda_function.lambda_handler',
-            code=aws_lambda.Code.from_asset('constructors/step_functions_flow_2/functions_of_statemachine/recieve_callback_token'),
+            code=aws_lambda.Code.from_asset('constructors/step_functions/functions_of_statemachine/recieve_callback_token'),
             timeout=aws_cdk.Duration.seconds(amount=60),
             tracing=aws_lambda.Tracing.ACTIVE,  # for X-Ray
             layers=[self.lambda_powertools()],  # for X-Ray SDK
@@ -185,7 +185,7 @@ class SfnReceiveCallbackTokenConstructors(Construct):
 #             function_name='job_completion_detection',
 #             runtime=aws_lambda.Runtime.PYTHON_3_9,
 #             handler='lambda_function.lambda_handler',
-#             code=aws_lambda.Code.from_asset('constructors/step_functions_flow_2/'
+#             code=aws_lambda.Code.from_asset('constructors/step_functions_flow/'
 #                                             'functions_of_statemachine/job_completion_detection'),
 #             timeout=aws_cdk.Duration.seconds(amount=300),
 #             tracing=aws_lambda.Tracing.ACTIVE,  # for X-Ray

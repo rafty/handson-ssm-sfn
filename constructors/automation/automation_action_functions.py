@@ -4,6 +4,7 @@ from aws_cdk import aws_lambda
 from aws_cdk import aws_sam
 from aws_cdk import aws_iam
 from aws_cdk import Aws
+from aws_cdk import aws_eks
 
 
 class AutomationActionFunctionConstructors(Construct):
@@ -20,7 +21,7 @@ class AutomationActionFunctionConstructors(Construct):
             function_name='ssm_action_get_instance_id',
             runtime=aws_lambda.Runtime.PYTHON_3_9,
             handler='lambda_function.lambda_handler',
-            code=aws_lambda.Code.from_asset('constructors/Automation2/action_functions/get_instance_id'),
+            code=aws_lambda.Code.from_asset('constructors/automation/action_functions/get_instance_id'),
             timeout=aws_cdk.Duration.seconds(amount=60),
             tracing=aws_lambda.Tracing.ACTIVE,  # for X-Ray
             layers=[self.lambda_powertools()],  # for X-Ray SDK

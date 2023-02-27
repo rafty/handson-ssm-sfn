@@ -20,10 +20,10 @@ class FunctionConstructors(Construct):
         function = aws_lambda.Function(
             self,
             'StartStepFunctionsFunction',
-            function_name='start_stepfunctions_function_2',
+            function_name='start_stepfunctions',
             runtime=aws_lambda.Runtime.PYTHON_3_9,
             handler='lambda_function.lambda_handler',
-            code=aws_lambda.Code.from_asset('handson_app/start_step_functions_2'),
+            code=aws_lambda.Code.from_asset('starter/start_step_functions'),
             timeout=aws_cdk.Duration.seconds(amount=300),
             tracing=aws_lambda.Tracing.ACTIVE,  # for X-Ray
             layers=[self.lambda_powertools()],  # for X-Ray SDK

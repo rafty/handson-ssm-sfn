@@ -61,7 +61,7 @@ class StepFunctionsConstructor(Construct):
         state_machine = aws_stepfunctions.StateMachine(
             self,
             'SsmHandsonStateMachine',
-            state_machine_name='SsmHandsonWithSfn2',
+            state_machine_name='handson_sfn',
             definition=self.create_handson_definition(),
             timeout=Duration.minutes(60),
             tracing_enabled=True)

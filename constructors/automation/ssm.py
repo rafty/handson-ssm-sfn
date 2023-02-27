@@ -14,14 +14,14 @@ class SsmConstructors(Construct):
 
     def create_automation_document(self):
 
-        with open('constructors/Automation2/handson_automation_2_runbook.yaml', 'r') as f:
+        with open('constructors/automation/handson_automation_runbook.yaml', 'r') as f:
             doc_content = yaml.safe_load(f)
 
         cfn_document = aws_ssm.CfnDocument(self,
                                            'HandsonAutomationRunBook',
                                            document_type='Automation',
                                            document_format='YAML',
-                                           name="handson_automation_2",
+                                           name="handson_automation",
                                            update_method='NewVersion',
                                            content=doc_content)
 
