@@ -31,7 +31,6 @@ class StepFunctionsConstructor(Construct):
         self.get_instance_id_function = kwargs.get('get_instance_id_function')
         self.job_execute_function = kwargs.get('job_execute_function')
         self.receive_callback_token_function = kwargs.get('receive_callback_token_function')
-        # self.job_completion_detection_function = kwargs.get('job_completion_detection_function')
 
         # -----------------------------------------------------
         # tasks
@@ -50,10 +49,6 @@ class StepFunctionsConstructor(Construct):
         # State Machine
         self.state_machine = self.create_state_machine()
 
-        # Todo: state machineから直接callしてる場合、grantは必要ない(たぶん)
-        #  しかし、job_completion_detection()などのCloudwatchLogsトリガのLambdaの場合はgrantが必要！！
-        # self.state_machine.grant_task_response(self.receive_callback_token_function)
-
     # -------------------------------------------------------
     # State Machine
     # -------------------------------------------------------
@@ -67,17 +62,6 @@ class StepFunctionsConstructor(Construct):
             tracing_enabled=True)
         return state_machine
 
-    # -------------------------------------------------------
-    # task definition
-    # -------------------------------------------------------
-    # def create_handson_definition(self):
-    #     definition = aws_stepfunctions.Chain\
-    #         .start(self.get_instance_id_task)\
-    #         .next(self.job_execute_task)\
-    #         .next(self.receive_callback_token_task)\
-    #         .next(self.sfn_succeed_task)
-    #
-    #     return definition
     def create_handson_definition(self):
         definition = aws_stepfunctions.Chain\
             .start(self.get_instance_id_task)\
@@ -183,9 +167,5 @@ class StepFunctionsConstructor(Construct):
             output_path='$',
             timeout=Duration.minutes(30)  # 30分でタイムアウトする!!
         )
-
-        # task.add_catch(self.sfn_fail_task,
-        #                errors=[aws_stepfunctions.Errors.ALL],
-        #                result_path='$.error_info')
 
         return task
